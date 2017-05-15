@@ -9,14 +9,14 @@ public class StaticData {
 	public static Map<String, Set<String>> attributeMappings;
 	public static Map<String, Set<String>> queryTableMappings;
 	public static Map<String, String> mainAttributeForTable;
-	public static Map<String, String> whereAttributeForWhereType;   // if
+	public static Map<String, String> whereAttributeForWhereType; // if
 																	// condition
 																	// is on
 																	// state,
 																	// "StateId"
 																	// should be
 																	// checked
-	public static Map<String, Set<String>> sameTableAttributeMappings;  // table
+	public static Map<String, Set<String>> sameTableAttributeMappings; // table
 																		// name,
 																		// attributes
 																		// that,
@@ -66,17 +66,16 @@ public class StaticData {
 													// question
 													// eg. Which is the largest
 													// city in California?
-	
-	public static Set<String> countPhrases;	// if any of these phrases exist in the question,
-											// this is a count question.
-											// eg. how many cities are there in Kansas?
 
-	
-	
+	public static Set<String> countPhrases; // if any of these phrases exist in
+											// the question,
+											// this is a count question.
+											// eg. how many cities are there in
+											// Kansas?
+
 	public static Set<String> isPhrases;
 	public static Set<String> arePhrases;
-	
-	
+
 	public static Map<String, String> stateTableAttributeMappings; // use only
 																	// when we
 																	// know that
@@ -103,16 +102,38 @@ public class StaticData {
 	public static Map<String, String> mountainTableAttributeMappings;
 	public static Map<String, String> lakeTableAttributeMappings;
 	public static Map<String, String> landelevationTableAttributeMappings;
-	
-	public static Map<String, String> attributeNameNormalNameMappings;	// normal name to be used in answer for the attribute name. 
-																		// For eg. RiverCount -> river. 
-																		// It will only be used for category 5 (user interest) questions
-	
-	
+
+	public static Map<String, String> attributeNameNormalNameMappings; // normal
+																		// name
+																		// to be
+																		// used
+																		// in
+																		// answer
+																		// for
+																		// the
+																		// attribute
+																		// name.
+																		// For
+																		// eg.
+																		// RiverCount
+																		// ->
+																		// river.
+																		// It
+																		// will
+																		// only
+																		// be
+																		// used
+																		// for
+																		// category
+																		// 5
+																		// (user
+																		// interest)
+																		// questions
+
 	private static void prepareAttributeNameNormalNameMappings() {
 		if (attributeNameNormalNameMappings == null || attributeNameNormalNameMappings.isEmpty()) {
 			attributeNameNormalNameMappings = new HashMap<>();
-			
+
 			attributeNameNormalNameMappings.put("RiverCount", "rivers");
 			attributeNameNormalNameMappings.put("MountainCount", "mountains");
 			attributeNameNormalNameMappings.put("LakeCount", "lakes");
@@ -121,12 +142,7 @@ public class StaticData {
 			attributeNameNormalNameMappings.put("area", "area");
 			attributeNameNormalNameMappings.put("gdp", "gdp");
 			attributeNameNormalNameMappings.put("TotalPopulation", "TotalPopulation");
-			
-		//	attributeNameNormalNameMappings.put("Mountainheight", "height");
-			
-			
-			
-			
+
 		}
 	}
 
@@ -139,18 +155,16 @@ public class StaticData {
 
 			Set<String> areaSet = new HashSet<>();
 			areaSet.add("area");
-		//	areaSet.add("big");
-	        areaSet.add("largest");
+
+			areaSet.add("largest");
 			areaSet.add("smallest");
 			areaSet.add("city");
 			areaSet.add("biggest");
 			areaSet.add("richer");
-		//	areaSet.add("lake");
 			areaSet.add("richest");
 			areaSet.add("poorest");
-			
+
 			attributeMappings.put("area", areaSet);
-			
 
 			Set<String> populationSet = new HashSet<>();
 			populationSet.add("population");
@@ -159,21 +173,19 @@ public class StaticData {
 			populationSet.add("state");
 			populationSet.add("people");
 			populationSet.add("largest");
-		//	populationSet.add("biggest");
+
 			populationSet.add("smallest");
-		    populationSet.add("highest");
-		//  populationSet.add("big");
+			populationSet.add("highest");
+
 			populationSet.add("richest");
 			populationSet.add("richer");
 			populationSet.add("poorest");
-			
-			
+
 			attributeMappings.put("TotalPopulation", populationSet);
 
-			
 			Set<String> gdpSet = new HashSet<>();
 			gdpSet.add("gdp");
-	    	gdpSet.add("richest");
+			gdpSet.add("richest");
 			gdpSet.add("poorer");
 			gdpSet.add("poorest");
 			gdpSet.add("richer");
@@ -183,9 +195,9 @@ public class StaticData {
 			gdpSet.add("highest");
 			gdpSet.add("maximam");
 			gdpSet.add("smallest");
-			
+
 			attributeMappings.put("gdp", gdpSet);
-			
+
 			Set<String> riverCountSet = new HashSet<>();
 			riverCountSet.add("richest");
 			riverCountSet.add("richer");
@@ -193,18 +205,17 @@ public class StaticData {
 			riverCountSet.add("largest");
 			riverCountSet.add("poorest");
 			riverCountSet.add("smallest");
-			
-			
+
 			attributeMappings.put("RiverCount", riverCountSet);
-			
+
 			Set<String> roadCountSet = new HashSet<>();
 			roadCountSet.add("richest");
 			roadCountSet.add("richer");
-          	roadCountSet.add("largest");
-          	roadCountSet.add("poorest");
-          	roadCountSet.add("smallest");
+			roadCountSet.add("largest");
+			roadCountSet.add("poorest");
+			roadCountSet.add("smallest");
 			attributeMappings.put("RoadCount", roadCountSet);
-			
+
 			Set<String> cityCountSet = new HashSet<>();
 			cityCountSet.add("richest");
 			cityCountSet.add("richer");
@@ -213,14 +224,14 @@ public class StaticData {
 			cityCountSet.add("largest");
 			cityCountSet.add("smallest");
 			attributeMappings.put("CityCount", cityCountSet);
-			
+
 			Set<String> mountainCountSet = new HashSet<>();
 			mountainCountSet.add("richest");
 			mountainCountSet.add("largest");
 			mountainCountSet.add("poorest");
 			mountainCountSet.add("smallest");
 			attributeMappings.put("MountainCount", mountainCountSet);
-			
+
 			Set<String> lakeCountSet = new HashSet<>();
 			lakeCountSet.add("richest");
 			lakeCountSet.add("largest");
@@ -228,26 +239,24 @@ public class StaticData {
 			lakeCountSet.add("richer");
 			lakeCountSet.add("poorer");
 			attributeMappings.put("LakeCount", lakeCountSet);
-			
+
 			Set<String> riverSet = new HashSet<>();
-		    riverSet.add("shortest");
+			riverSet.add("shortest");
 			riverSet.add("long");
 			riverSet.add("largest");
 			riverSet.add("biggest");
 			riverSet.add("longest");
 			riverSet.add("smallest");
 			attributeMappings.put("RiverLength", riverSet);
-			
 
 			Set<String> roadSet = new HashSet<>();
 			roadSet.add("length");
 			roadSet.add("largest");
 			roadSet.add("shortest");
 			roadSet.add("smallest");
-			
+
 			attributeMappings.put("RoadLength", roadSet);
-			
-			
+
 			Set<String> lakeSet = new HashSet<>();
 			lakeSet.add("lake");
 			lakeSet.add("largest");
@@ -255,57 +264,46 @@ public class StaticData {
 			lakeSet.add("shortest");
 			lakeSet.add("smallest");
 			attributeMappings.put("LakeLength", lakeSet);
-			
-		
-			
+
 			Set<String> mountainSet = new HashSet<>();
-		//	mountainSet.add("richest");
-			//mountainSet.add("richer");	
-		//	mountainSet.add("poorer");
-		//	mountainSet.add("high");
+
 			mountainSet.add("largest");
 			mountainSet.add("lowest");
 			mountainSet.add("smallest");
-			
-			attributeMappings.put("Mountainheight", mountainSet);
-			
 
-			
+			attributeMappings.put("Mountainheight", mountainSet);
+
 			Set<String> landelevationSet = new HashSet<>();
 			landelevationSet.add("point");
 			landelevationSet.add("highland");
 			landelevationSet.add("lowland");
 			landelevationSet.add("HighLength");
 			landelevationSet.add("LowLength");
-			
+
 			attributeMappings.put("landelevation", landelevationSet);
-			
 
 			Set<String> lengthSet = new HashSet<>();
 			lengthSet.add("lake");
 			lengthSet.add("river");
 			lengthSet.add("mountain");
 			lengthSet.add("country");
-	//		lengthSet.add("road");
+
 			lengthSet.add("longest");
 			lengthSet.add("smallest");
 			lengthSet.add("deepest");
-		 //	lengthSet.add("largest");
-			
-			attributeMappings.put("length",lengthSet);
-			
+
+			attributeMappings.put("length", lengthSet);
+
 			Set<String> borderSet = new HashSet<>();
 			borderSet.add("border");
-			
+
 			attributeMappings.put("border", borderSet);
-			
 
 		}
 	}
-	
-	//it gives the other column of the table
-	//it gives the table name
 
+	// it gives the other column of the table
+	// it gives the table name
 
 	private static void prepareSameTableAttributeMappings() {
 		if (sameTableAttributeMappings == null || sameTableAttributeMappings.isEmpty()) {
@@ -325,53 +323,44 @@ public class StaticData {
 			stateSet.add("lake");
 			stateSet.add("abbreviation");
 			stateSet.add("big");
-		
-			
+
 			sameTableAttributeMappings.put("state", stateSet);
 
 			Set<String> citySet = new HashSet<>();
 			citySet.add("area");
 			citySet.add("big");
-		//	citySet.add("population");
-		//  citySet.add("states");
-			
+
 			sameTableAttributeMappings.put("city", citySet);
-			
-		
-			
 
 			Set<String> countrySet = new HashSet<>();
 			countrySet.add("region");
 			countrySet.add("area");
 			countrySet.add("capital");
-		//	countrySet.add("population");
+
 			countrySet.add("top");
 			countrySet.add("bottom");
 			countrySet.add("lowland");
 			countrySet.add("highland");
 			countrySet.add("USA");
 			countrySet.add("abbreviation");
-			
+
 			sameTableAttributeMappings.put("country", countrySet);
-			
+
 			Set<String> borderSet = new HashSet<>();
 			borderSet.add("border");
-			//borderSet.add("border name");
+
 			sameTableAttributeMappings.put("border", borderSet);
-			
+
 			Set<String> roadSet = new HashSet<>();
 			roadSet.add("road");
-			
-		//	roadSet.add("length");
-			
+
 			sameTableAttributeMappings.put("road", roadSet);
-			
+
 			Set<String> riverSet = new HashSet<>();
 			riverSet.add("river");
-			
-		//	riverSet.add("length");
+
 			sameTableAttributeMappings.put("river", riverSet);
-			
+
 			Set<String> mountainSet = new HashSet<>();
 			mountainSet.add("MountainName");
 			mountainSet.add("high");
@@ -379,18 +368,13 @@ public class StaticData {
 			mountainSet.add("Mountain");
 			mountainSet.add("elevation");
 			sameTableAttributeMappings.put("mountain", mountainSet);
-			
-						
+
 			Set<String> lakeSet = new HashSet<>();
 			lakeSet.add("lake");
 			lakeSet.add("road name");
-	//		lakeSet.add("length");
-			
+
 			sameTableAttributeMappings.put("lake", lakeSet);
-			
-			
-			
-			
+
 			Set<String> landelevationSet = new HashSet<>();
 			landelevationSet.add("top");
 			landelevationSet.add("point");
@@ -400,23 +384,16 @@ public class StaticData {
 			landelevationSet.add("lowland");
 			landelevationSet.add("length");
 			landelevationSet.add("elevation");
-			
+
 			sameTableAttributeMappings.put("landelevation", landelevationSet);
-			
-		
-			
-			
-			
-			// TODO: complete for remaining tables
-			// add all such columns that can be asked about
+
 		}
 	}
-	
+
 	private static void prepareStateTableAttributeMappings() {
 		if (stateTableAttributeMappings == null || stateTableAttributeMappings.isEmpty()) {
 			stateTableAttributeMappings = new HashMap<>();
-			// key is the word that can be found in question
-			// value is the word that is found in database i.e. the 
+
 			stateTableAttributeMappings.put("capital", "StateCapital");
 			stateTableAttributeMappings.put("area", "Area");
 			stateTableAttributeMappings.put("population", "TotalPopulation");
@@ -432,10 +409,10 @@ public class StaticData {
 			stateTableAttributeMappings.put("road", "RoadCount");
 			stateTableAttributeMappings.put("abbreviation", "StateAbbreviation");
 			stateTableAttributeMappings.put("big", "Area");
-			
+
 		}
 	}
-	
+
 	private static void prepareCityTableAttributeMappings() {
 		if (cityTableAttributeMappings == null || cityTableAttributeMappings.isEmpty()) {
 			cityTableAttributeMappings = new HashMap<>();
@@ -443,11 +420,10 @@ public class StaticData {
 			cityTableAttributeMappings.put("population", "TotalPopulation");
 			cityTableAttributeMappings.put("city", "CityName");
 			cityTableAttributeMappings.put("big", "Area");
-			
-			
+
 		}
 	}
-	
+
 	private static void prepareCountryTableAttributeMapping() {
 		if (countryTableAttributeMappings == null || countryTableAttributeMappings.isEmpty()) {
 			countryTableAttributeMappings = new HashMap<>();
@@ -457,12 +433,13 @@ public class StaticData {
 			countryTableAttributeMappings.put("population", "CountryTotalPopulation");
 			countryTableAttributeMappings.put("top", "Highland");
 			countryTableAttributeMappings.put("Highland", "Highland");
-			countryTableAttributeMappings.put("botttom", "Lowland");
-	    	countryTableAttributeMappings.put("lowland", "Lowland");
+			countryTableAttributeMappings.put("bottom", "Lowland");
+			countryTableAttributeMappings.put("lowland", "Lowland");
 			countryTableAttributeMappings.put("abbreviation", "CountryAbbreviation");
-			
+
 		}
 	}
+
 	private static void prepareMountainTableAttributeMapping() {
 		if (mountainTableAttributeMappings == null || mountainTableAttributeMappings.isEmpty()) {
 			mountainTableAttributeMappings = new HashMap<>();
@@ -470,33 +447,31 @@ public class StaticData {
 			mountainTableAttributeMappings.put("height", "MountainHeight");
 			mountainTableAttributeMappings.put("elevation", "MountainHeight");
 			mountainTableAttributeMappings.put("high", "MountainHeight");
-			
+
 		}
 	}
+
 	private static void prepareRiverTableAttributeMapping() {
 		if (riverTableAttributeMappings == null || riverTableAttributeMappings.isEmpty()) {
 			riverTableAttributeMappings = new HashMap<>();
-			riverTableAttributeMappings.put("long","RiverLength");
+			riverTableAttributeMappings.put("long", "RiverLength");
 			riverTableAttributeMappings.put("river", "RiverName");
 			riverTableAttributeMappings.put("rivers", "RiverName");
 			riverTableAttributeMappings.put("length", "RiverLength");
-			
-			//riverTableAttributeMappings.put("long", "RiverLength");
-			
-			
+
 		}
 	}
+
 	private static void prepareRoadTableAttributeMapping() {
 		if (roadTableAttributeMappings == null || roadTableAttributeMappings.isEmpty()) {
 			roadTableAttributeMappings = new HashMap<>();
 			roadTableAttributeMappings.put("road", "RoadName");
-			roadTableAttributeMappings.put("length","RoadLength");
-			roadTableAttributeMappings.put("long","RoadLength");
-			
-			
-			
+			roadTableAttributeMappings.put("length", "RoadLength");
+			roadTableAttributeMappings.put("long", "RoadLength");
+
 		}
 	}
+
 	private static void prepareLandElevationTableAttributeMapping() {
 		if (landelevationTableAttributeMappings == null || landelevationTableAttributeMappings.isEmpty()) {
 			landelevationTableAttributeMappings = new HashMap<>();
@@ -511,32 +486,30 @@ public class StaticData {
 			landelevationTableAttributeMappings.put("low", "LowLength");
 			landelevationTableAttributeMappings.put("length", "LowLength");
 			landelevationTableAttributeMappings.put("elevation", "highLength");
-			
-			
+
 		}
 	}
+
 	private static void prepareLakeTableAttributeMapping() {
 		if (lakeTableAttributeMappings == null || lakeTableAttributeMappings.isEmpty()) {
 			lakeTableAttributeMappings = new HashMap<>();
 			lakeTableAttributeMappings.put("lake", "LakeName");
 			lakeTableAttributeMappings.put("length", "LakeLength");
-			
+
 		}
 	}
+
 	private static void prepareBorderTableAttributeMapping() {
 		if (borderTableAttributeMappings == null || borderTableAttributeMappings.isEmpty()) {
 			borderTableAttributeMappings = new HashMap<>();
 			borderTableAttributeMappings.put("border", "BorderName");
-			
-			
+
 		}
 	}
 
-	
-
 	/**
-	 * function for preparing mappings that would help in question modelling
-	 * it takes all improper noun 
+	 * function for preparing mappings that would help in question modelling it
+	 * takes all improper noun
 	 * 
 	 */
 	private static void prepareQueryTableMappings() {
@@ -546,60 +519,43 @@ public class StaticData {
 			Set<String> lakeSet = new HashSet<>();
 			lakeSet.add("lake");
 			lakeSet.add("lakes");
-			//lakeSet.add("length");
+
 			lakeSet.add("water");
 			queryTableMappings.put("lake", lakeSet);
-			
-			
-			
+
 			Set<String> mountainSet = new HashSet<>();
 			mountainSet.add("mountain");
 			mountainSet.add("mountains");
 			mountainSet.add("Mountain");
-			//mountainSet.add("mountainname");
-			//mountainSet.add("height");
+
 			queryTableMappings.put("mountain", mountainSet);
-			
-//			Set<String> populationSet = new HashSet<>();
-//			populationSet.add("population");
-//			populationSet.add("citizens");
-//			
-//			queryTableMappings.put("TotalPopulation", populationSet);
-//			
-			
-						
-		    
 
 			Set<String> citySet = new HashSet<>();
 			citySet.add("city");
 			citySet.add("cities");
 			queryTableMappings.put("city", citySet);
-			
 
 			Set<String> roadSet = new HashSet<>();
 			roadSet.add("road");
 			roadSet.add("roads");
-			//roadSet.add("length");
+
 			queryTableMappings.put("road", roadSet);
-			
+
 			Set<String> borderSet = new HashSet<>();
 			borderSet.add("border");
 			borderSet.add("borders");
 			queryTableMappings.put("border", borderSet);
-			
+
 			Set<String> landelevationSet = new HashSet<>();
-		   // landelevationSet.add("highland");
+
 			landelevationSet.add("landelevation");
 			landelevationSet.add("landelevations");
 			queryTableMappings.put("landelevation", landelevationSet);
-			
-		
 
 			Set<String> riverSet = new HashSet<>();
 			riverSet.add("river");
 			riverSet.add("rivers");
-		
-			
+
 			queryTableMappings.put("river", riverSet);
 
 			Set<String> countrySet = new HashSet<>();
@@ -608,16 +564,13 @@ public class StaticData {
 			countrySet.add("America");
 			countrySet.add("usa");
 			countrySet.add("USA");
-			
-			
-			
+
 			queryTableMappings.put("country", countrySet);
 
 			Set<String> stateSet = new HashSet<>();
 			stateSet.add("state");
 			stateSet.add("states");
 
-			//stateSet.add("capital");
 			queryTableMappings.put("state", stateSet);
 		}
 	}
@@ -633,17 +586,12 @@ public class StaticData {
 			mainAttributeForTable.put("country", "CountryName");
 			mainAttributeForTable.put("landelevation", "landelevationName");
 			mainAttributeForTable.put("country", "CountryName");
-			//mainAttributeForTable.put("landelevation", "Lowland");
-			//mainAttributeForTable.put("river", "RiverName");
 			mainAttributeForTable.put("river", "StateName");
-			//whereAttributeForWhereType.put("road", "RoadLength");
 			mainAttributeForTable.put("road", "RoadName");
 			mainAttributeForTable.put("border", "BorderName");
 			mainAttributeForTable.put("mountain", "MountainName");
 			mainAttributeForTable.put("capital", "capitalName");
-			//mainAttributeForTable.put("mountain", "Mountainheight");
 
-			// TODO: add remaining
 		}
 	}
 
@@ -657,19 +605,13 @@ public class StaticData {
 			whereAttributeForWhereType.put("river", "RiverId");
 			whereAttributeForWhereType.put("country", "CountryId");
 			whereAttributeForWhereType.put("landelevation", "LandelEvationId");
-			//whereAttributeForWhereType.put("landelevation", "LowLand");
 			whereAttributeForWhereType.put("country", "CountryId");
 			whereAttributeForWhereType.put("river", "RiverId");
 			whereAttributeForWhereType.put("road", "RoadId");
 			whereAttributeForWhereType.put("border", "BorderId");
-			//whereAttributeForWhereType.put("road", "RoadLength");
 			whereAttributeForWhereType.put("mountain", "MountainId");
 			whereAttributeForWhereType.put("lake", "lakeId");
-			
-			
-		
 
-			// TODO: add remaining
 		}
 	}
 
@@ -696,33 +638,28 @@ public class StaticData {
 			maximumAdjectives.add("richest");
 			maximumAdjectives.add("richer");
 			maximumAdjectives.add("longest");
-		//	maximumAdjectives.add("big");
-		//	maximumAdjectives.add("point");
-			
-			//maximumAdjectives.add("long");
-			
-			
+
 		}
-		
+
 		if (countPhrases == null || countPhrases.isEmpty()) {
 			countPhrases = new HashSet<>();
 			countPhrases.add("how many");
 			countPhrases.add("count");
 			countPhrases.add("quantity");
 		}
-		
+
 		if (isPhrases == null || isPhrases.isEmpty()) {
 			isPhrases = new HashSet<>();
 			isPhrases.add("is");
-			
+
 		}
-		
+
 		if (arePhrases == null || arePhrases.isEmpty()) {
 			arePhrases = new HashSet<>();
 			arePhrases.add("are");
-			
+
 		}
-		
+
 	}
 
 	public static void prepareAllStaticData() {
@@ -742,6 +679,6 @@ public class StaticData {
 		prepareLandElevationTableAttributeMapping();
 		prepareBorderTableAttributeMapping();
 		prepareMountainTableAttributeMapping();
-		
+
 	}
 }

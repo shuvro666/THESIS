@@ -1,7 +1,5 @@
 package GUI;
 
-   
-
 import weka.classifiers.Classifier;
 import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.bayes.*;
@@ -19,13 +17,9 @@ import weka.gui.Main;
 public class ClassifierModel {
 
 	public static String getUserInterest() throws Exception {
-		Classifier j48tree = new NaiveBayesMultinomialText();
-		Instances train = new Instances(
-				new BufferedReader(new FileReader("./ThesisData1/trainingdata.arff")));
-//		RemoveType af = new RemoveType();
-//		  af.setInputFormat(train);
-//		  train = Filter.useFilter(train, af);
-		 
+		Classifier classifier = new NaiveBayesMultinomialText();
+		Instances train = new Instances(new BufferedReader(new FileReader("./ThesisData1/trainingdata.arff")));
+
 		int lastIndex = train.numAttributes() - 1;
 
 		train.setClassIndex(lastIndex);
@@ -34,17 +28,11 @@ public class ClassifierModel {
 				new BufferedReader(new FileReader("C:/Users/shuvro/Desktop/ThesisData1/test.arff")));
 		test.setClassIndex(lastIndex);
 
-		j48tree.buildClassifier(train);
-		
-		double index = j48tree.classifyInstance(test.instance(0));
+		classifier.buildClassifier(train);
+
+		double index = classifier.classifyInstance(test.instance(0));
 		String userType = train.attribute(lastIndex).value((int) index);
 		return userType;
-		
-		
+
 	}
 }
-		
-	
-	
-	
-

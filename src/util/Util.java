@@ -20,7 +20,6 @@ public class Util {
 			System.out.println(string);
 	}
 
-	// replace output string with Enum later
 	/**
 	 * determine if the word is a state, city, lake, or ... <br />
 	 * Output will be a table name
@@ -29,44 +28,43 @@ public class Util {
 	 * @param adjectives
 	 * @return
 	 */
-	public static String determineTypeOfProperNoun(String properNoun, List<String> improperNouns,
-			List<String> adjectives) {
+	public static String determineTypeOfProperNoun(String properNoun, List<String> nouns, List<String> adjectives) {
 
 		if (DBData.countryNameIds.containsKey(properNoun))
 			return "country";
 
-		else if (DBData.landelevationNameIds.containsKey(properNoun) && improperNouns.contains("elevation"))
-			
+		else if (DBData.landelevationNameIds.containsKey(properNoun) && nouns.contains("elevation"))
+
 			return "landelevation";
-	
+
 		else if (DBData.roadNameIds.containsKey(properNoun))
 			return "road";
 
 		else if (DBData.mountainNameIds.containsKey(properNoun))
 			return "mountain";
 
-		else if ((DBData.stateNameIds.containsKey(properNoun) && !improperNouns.contains("most")
-				&& improperNouns.contains("city")) && !adjectives.contains("biggest")
-				&& !adjectives.contains("shortest") && !adjectives.contains("largest")
-				&& !adjectives.contains("smallest") && !adjectives.contains("shortest")
-				&& !adjectives.contains("richest")
-			 || !DBData.stateNameIds.containsKey(properNoun) && improperNouns.contains("population") && improperNouns.contains("city"))
+		else if ((DBData.stateNameIds.containsKey(properNoun) && !nouns.contains("most") && nouns.contains("city"))
+				&& !adjectives.contains("biggest") && !adjectives.contains("shortest")
+				&& !adjectives.contains("largest") && !adjectives.contains("smallest")
+				&& !adjectives.contains("shortest") && !adjectives.contains("richest")
+				|| !DBData.stateNameIds.containsKey(properNoun) && nouns.contains("population")
+						&& nouns.contains("city"))
 			return "city";
 
-		else if (DBData.stateNameIds.containsKey(properNoun) && improperNouns.contains("river")
+		else if (DBData.stateNameIds.containsKey(properNoun) && nouns.contains("river")
 				&& !adjectives.contains("largest") && !adjectives.contains("biggest") && !adjectives.contains("longest")
-				&& !adjectives.contains("shortest") && !improperNouns.contains("pass")
-				&& !improperNouns.contains("passes") && !improperNouns.contains("flow")
-				&& !improperNouns.contains("flows") && !improperNouns.contains("traverse"))
+				&& !adjectives.contains("shortest") && !nouns.contains("pass") && !nouns.contains("passes")
+				&& !nouns.contains("flow") && !nouns.contains("flows") && !nouns.contains("traverse"))
 			return "river";
 
-		else if (DBData.borderNameIds.containsKey(properNoun) && improperNouns.contains("neighbour")
-				&& !improperNouns.contains("mountain"))
+		else if (DBData.borderNameIds.containsKey(properNoun) && nouns.contains("neighbour")
+				&& !nouns.contains("mountain"))
 			return "border";
 
-		else if ((DBData.stateNameIds.containsKey(properNoun) && !improperNouns.contains("city"))
-				|| DBData.stateNameIds.containsKey(properNoun) && !improperNouns.contains("river")
-			    || !DBData.stateNameIds.containsKey(properNoun) && improperNouns.contains("population") && improperNouns.contains("state"))
+		else if ((DBData.stateNameIds.containsKey(properNoun) && !nouns.contains("city"))
+				|| DBData.stateNameIds.containsKey(properNoun) && !nouns.contains("river")
+				|| !DBData.stateNameIds.containsKey(properNoun) && nouns.contains("population")
+						&& nouns.contains("state"))
 
 			return "state";
 
@@ -81,9 +79,8 @@ public class Util {
 			return "lake";
 
 		return "";
-		
+
 	}
-	
 
 	/**
 	 * get possible candidates for the input word. <br />
@@ -94,8 +91,8 @@ public class Util {
 	 * @param word
 	 * @return
 	 */
-	public static Set<String> getPossibleCandidateAttributesForWord(String word, UserType userType,
-			List<String> improperNouns, boolean isSeen) {
+	public static Set<String> getPossibleCandidateAttributesForWord(String word, UserType userType, List<String> nouns,
+			boolean isSeen) {
 		Set<String> candidates = new HashSet<>();
 		Set<String> userInterestedAttributes = UserInterest.userInterestMapping.get(userType); // all
 																								// the
@@ -106,50 +103,48 @@ public class Util {
 																								// is
 		// candidate attribute [gdp, citycount, roadcount] // interested
 		System.out.println(userInterestedAttributes);
-		if (!(userType == UserType.NONE) && isSeen == false) { 
+		if (!(userType == UserType.NONE) && isSeen == false) {
 			for (Entry<String, Set<String>> entry : StaticData.attributeMappings.entrySet()) {
 				Set<String> values = entry.getValue();
 				if (values.contains(word)) {
 					System.out.println(entry.getKey());
 					if (userInterestedAttributes.contains(entry.getKey())) {
-						System.out.println("Improper nouns - " + improperNouns);
-						System.out.println(!(improperNouns.contains("cities")
-								&& entry.getKey().equalsIgnoreCase("CityCount"))
-								&& (!(improperNouns.contains("city") && entry.getKey().equalsIgnoreCase("CityCount"))));
+						System.out.println("Improper nouns - " + nouns);
+						System.out.println(!(nouns.contains("cities") && entry.getKey().equalsIgnoreCase("CityCount"))
+								&& (!(nouns.contains("city") && entry.getKey().equalsIgnoreCase("CityCount"))));
 						if (word.equalsIgnoreCase("richest") || word.equalsIgnoreCase("poorest")) {
 							if (userType == UserType.BUSINESSMAN) {
 								if (!(entry.getKey().equalsIgnoreCase("TotalPopulation"))
-										&& !(improperNouns.contains("cities")
-												&& entry.getKey().equalsIgnoreCase("CityCount"))
-										&& (!(improperNouns.contains("city")
+										&& !(nouns.contains("cities") && entry.getKey().equalsIgnoreCase("CityCount"))
+										&& (!(nouns.contains("city")
 												&& entry.getKey().equalsIgnoreCase("CityCount")))) {
 									candidates.add(entry.getKey());
 								}
 							} else {
-								if (!(entry.getKey().equalsIgnoreCase("area")) && !(entry.getKey().equalsIgnoreCase("TotalPopulation"))
-										&& !(improperNouns.contains("cities")
-												&& entry.getKey().equalsIgnoreCase("CityCount"))
-										&& (!(improperNouns.contains("city")
+								if (!(entry.getKey().equalsIgnoreCase("area"))
+										&& !(entry.getKey().equalsIgnoreCase("TotalPopulation"))
+										&& !(nouns.contains("cities") && entry.getKey().equalsIgnoreCase("CityCount"))
+										&& (!(nouns.contains("city")
 												&& entry.getKey().equalsIgnoreCase("CityCount")))) {
 									candidates.add(entry.getKey());
 								}
 							}
-							
+
 						} else if (word.equalsIgnoreCase("largest") || (word.equalsIgnoreCase("smallest"))) {
 							if (userType == UserType.BUSINESSMAN) {
 								if (!(entry.getKey().equalsIgnoreCase("CityCount"))
-										&& !(improperNouns.contains("states")
-												&& entry.getKey().equalsIgnoreCase("RoadCount"))
-										&& (!(improperNouns.contains("state")
+										&& !(nouns.contains("states") && entry.getKey().equalsIgnoreCase("RoadCount"))
+										&& (!(nouns.contains("state")
 												&& entry.getKey().equalsIgnoreCase("RoadCount")))) {
 									candidates.add(entry.getKey());
 								}
 							} else {
-								if (entry.getKey().equalsIgnoreCase("area") || entry.getKey().equalsIgnoreCase("TotalPopulation")) {
+								if (entry.getKey().equalsIgnoreCase("area")
+										|| entry.getKey().equalsIgnoreCase("TotalPopulation")) {
 									candidates.add(entry.getKey());
 								}
 							}
-							
+
 						}
 
 					}
@@ -157,26 +152,10 @@ public class Util {
 			}
 		}
 
-		/*
-		 * if(!(userType == UserType.NONE)) { // in for (Entry<String,
-		 * Set<String>> entry : StaticData.attributeMappings.entrySet()) {
-		 * Set<String> values = entry.getValue(); if (values.contains(word)) {
-		 * if (userInterestedAttributes.contains(entry.getKey()) &&
-		 * (improperNouns.contains("states") &&
-		 * word.contains("richest"))||(improperNouns.contains("cities") &&
-		 * word.contains("richest"))) {
-		 * {if(userInterestedAttributes.contains(entry.getKey()) &&
-		 * !(improperNouns.contains("cities") &&
-		 * entry.getKey().equalsIgnoreCase("CityCount"))){
-		 * candidates.add(entry.getKey()); }
-		 * 
-		 * }
-		 */
-
 		else {
 			if (!isSeen) {
-				if (improperNouns.contains("state") && !improperNouns.contains("border")
-						&& !improperNouns.contains("population") || improperNouns.contains("states")) {
+				if (nouns.contains("state") && !nouns.contains("border") && !nouns.contains("population")
+						|| nouns.contains("states")) {
 					candidates.add("area");
 					candidates.add("TotalPopulation");
 					candidates.add("gdp");
@@ -185,84 +164,86 @@ public class Util {
 					candidates.add("RoadCount");
 					candidates.add("MountainCount");
 
-				} else if (improperNouns.contains("population") || word.contains("highest")) {
+				} else if (nouns.contains("population") || word.contains("highest")) {
 
 					candidates.add("TotalPopulation");
 
 				}
 
-				else if (improperNouns.contains("state") || improperNouns.contains("border")) {
+				else if (nouns.contains("state") || nouns.contains("border")) {
 
 					candidates.add("area");
 
 				}
 
-				else if (improperNouns.contains("city") || improperNouns.contains("cities")) {
+				else if (nouns.contains("city") || nouns.contains("cities")) {
 					candidates.add("gdp");
 					candidates.add("area");
 					candidates.add("TotalPopulation");
-				} else if (improperNouns.contains("mountain") || word.equals("mountains")) {
+				} else if (nouns.contains("mountain") || word.equals("mountains")) {
 					candidates.add("Mountainheight");
 				}
 
-				else if (improperNouns.contains("lake") || improperNouns.contains("lakes")) {
+				else if (nouns.contains("lake") || nouns.contains("lakes")) {
 					candidates.add("LakeLength");
-				} else if (improperNouns.contains("gdp") && word.equals("highest")) {
+				} else if (nouns.contains("gdp") && word.equals("highest")) {
 					candidates.add("GDP");
 				}
 			} else {
-				if ((improperNouns.contains("state") || improperNouns.contains("city")) && word.equals("richest")) {
-					if(userType == UserType.TOURIST && improperNouns.contains("state")){
+				if ((nouns.contains("state") || nouns.contains("city")) && word.equals("richest")) {
+					if (userType == UserType.TOURIST && nouns.contains("state")) {
 						candidates.add("MountainCount");
 						candidates.add("RiverCount");
 						candidates.add("CityCount");
 						candidates.add("LakeCount");
-					}else if(userType == UserType.TOURIST && improperNouns.contains("city")){
+					} else if (userType == UserType.TOURIST && nouns.contains("city")) {
 						candidates.add("MountainCount");
 						candidates.add("RiverCount");
 						candidates.add("LakeCount");
-						}
-					else {candidates.add("gdp");}
-					
-				} else if ((improperNouns.contains("city") && word.equals("populous"))) {
+					} else {
+						candidates.add("gdp");
+					}
+
+				} else if ((nouns.contains("city") && word.equals("populous"))) {
 					candidates.add("TotalPopulation");
-				} else if ((improperNouns.contains("population") && word.equals("highest"))) {
+				} else if ((nouns.contains("population") && word.equals("highest"))) {
 					candidates.add("TotalPopulation");
 				}
 
-				else if ((improperNouns.contains("state") || improperNouns.contains("city"))
-						|| improperNouns.contains("cities")
-						|| improperNouns.contains("capital") && word.equals("largest")
-						|| improperNouns.contains("biggest")) {
-					if(userType == UserType.TOURIST){
+				else if ((nouns.contains("state") || nouns.contains("city")) || nouns.contains("cities")
+						|| nouns.contains("capital") && word.equals("largest") || nouns.contains("biggest")) {
+					if (userType == UserType.TOURIST) {
 						candidates.add("area");
-					}else if(userType == UserType.BUSINESSMAN){
+					} else if (userType == UserType.BUSINESSMAN) {
 						candidates.add("TotalPopulation");
-					}else{
+					} else {
 						candidates.add("area");
 						candidates.add("TotalPopulation");
 					}
-				} else if (improperNouns.contains("mountain") && (word.equals("largest") || word.equals("highest") || word.equals("lowest"))) {
+				} else if (nouns.contains("mountain")
+						&& (word.equals("largest") || word.equals("highest") || word.equals("lowest"))) {
 					candidates.add("Mountainheight");
-				} else if (improperNouns.contains("lake") && word.equals("largest")
-						|| (word.equals("shortest") && !improperNouns.contains("river"))&&!improperNouns.contains("road")) {
+				} else if (nouns.contains("lake") && (word.equals("largest") || word.equals("shortest")
+						|| (word.equals("smallest")) && !nouns.contains("river")) && !nouns.contains("road")) {
 					candidates.add("LakeLength");
-				} else if (improperNouns.contains("river") && word.equals("largest") || word.equals("biggest") || word.equals("longest")
-						|| word.equals("shortest") && !improperNouns.contains("road")) {
+				} else if (nouns.contains("river") && word.equals("largest") || word.equals("biggest")
+						|| word.equals("longest") || word.equals("shortest") && !nouns.contains("road")) {
 					candidates.add("RiverLength");
-				} else if (improperNouns.contains("road") && word.equals("largest") || word.contains("smallest") || word.contains("shortest")) {
+				} else if (nouns.contains("road") && word.equals("largest") || word.contains("smallest")
+						|| word.contains("shortest")) {
 					candidates.add("RoadLength");
 				}
 
 			}
 		}
-		return candidates;}
-		
+		return candidates;
 
+	}
 
 	public static boolean isPrepositionOf(String preposition) {
 		return preposition.toLowerCase().equals("of");
 	}
+
 	public static boolean isWhere(String Where) {
 		return Where.toLowerCase().equals("where");
 	}
@@ -308,18 +289,6 @@ public class Util {
 		return isCount;
 	}
 
-	/*
-	 * public static boolean isPhraseQuestion(String question) { boolean
-	 * isPhrase = false;
-	 * 
-	 * question = question.toLowerCase();
-	 * 
-	 * for (String Phraseis : StaticData.isPhrases) { if
-	 * (question.contains(Phraseis)) { Phraseis = true; break; } }
-	 * 
-	 * return isPhrase; }
-	 */
-
 	/**
 	 * get possible candidate query tables for the input words. <br />
 	 * Example: <br />
@@ -350,12 +319,10 @@ public class Util {
 							candidates.add(candidate);
 						}
 						isTableFound = true;
-						// break;
+
 					}
 				}
-				/*
-				 * if (isTableFound) { break; }
-				 */
+
 			}
 		}
 		if (!isTableFound) {
@@ -368,13 +335,10 @@ public class Util {
 							candidates.add(candidate);
 						}
 						isTableFound = true;
-						// break;
+
 					}
 
 				}
-				/*
-				 * if (isTableFound) { break; }
-				 */
 			}
 
 		} else {
@@ -446,21 +410,17 @@ public class Util {
 	 * @param desiredAttribute
 	 * @return
 	 */
-	
-	//String adjectives
+
 	public static ArrayList<String> getDesiredAttributeForTable(boolean isSameTableQuestion,
 			ArrayList<String> tableNames, List<String> inproperNouns) {
 		String attribute;
 		ArrayList<String> attributes = new ArrayList<String>();
 		try {
-			/*
-			 * if (!isSameTableQuestion) { attribute =
-			 * getMainAttributeForTable(tableName); } else {
-			 */
+
 			for (int i = 0; i < tableNames.size(); i++) {
 				String tableName = tableNames.get(i);
 				System.out.println(tableName + "*************");
-				// String adjective = adjectives.get(i);
+
 				String inproperNoun = inproperNouns.get(i);
 				switch (tableName) {
 				case "state":
@@ -508,23 +468,12 @@ public class Util {
 					attribute = "";
 				}
 				System.out.println(tableName + " " + inproperNoun + " " + attribute);
-				// if desiredAttribute is found
+
 				if (!attribute.isEmpty() && !attributes.contains(attribute)) {
 					attributes.add(attribute);
 					// break;
 				}
 				if (attribute.isEmpty()) {
-					
-				/*	if(adjectives.contains("highest")){
-						
-						attribute="highland";
-						attributes.add(attribute);
-					}
-					else if (adjectives.contains("lowest")) {
-						attribute="lowland";
-						attributes.add(attribute);
-					}
-					*/
 					attribute = getMainAttributeForTable(tableName);
 					if (!attribute.isEmpty() && !attributes.contains(attribute)) {
 						attributes.add(attribute);

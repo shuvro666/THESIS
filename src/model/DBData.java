@@ -44,6 +44,7 @@ public class DBData {
 
 	public static Map<Integer, River> rivers;
 	public static Map<String, Integer> riverNameIds;
+	
 
 	public static Map<Integer, Road> roads;
 	public static Map<String, Integer> roadNameIds;
@@ -110,7 +111,7 @@ public class DBData {
 		if (rivers == null || rivers.isEmpty()) {
 			rivers = new HashMap<>();
 			riverNameIds = new HashMap<>();
-            //riverlenght=new HashMap<>();
+            
 			Statement sta = DBConnector.conn.createStatement();
 			String Sql = "select * from river";
 			ResultSet rs = sta.executeQuery(Sql);
@@ -127,7 +128,7 @@ public class DBData {
 				river = new River(id, name, stateId, length, countryId, statename);
 				rivers.put(id, river);
 				riverNameIds.put(name, id);
-				//riverlenght.put(id,length);
+				
 				
 			}
 		}

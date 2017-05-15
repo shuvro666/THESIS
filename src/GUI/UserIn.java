@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -91,7 +92,7 @@ public class UserIn {
 		comboBox.setBounds(170, 98, 79, 30);
 		frame.getContentPane().add(comboBox);
 
-		/*textField = new JTextField();
+		textField = new JTextField();
 		textField.setBounds(170, 55, 271, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -99,9 +100,9 @@ public class UserIn {
 		JLabel lblQuestion = new JLabel("Question");
 		lblQuestion.setBounds(61, 58, 79, 14);
 		frame.getContentPane().add(lblQuestion);
-		*/
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"How many rivers are in America", "How many mountains are in America", "How many cities are in America", "How many states are in America", "How many roads are in America", "", "what are the richest states", "what are the largest states", "what are the richest cities", "what are the largest cities", "", "what is the richest state", "what is the largest mountain", "what is the largest mountain in Colorado", "what is the largest lake in Minnesota", "what is the largest state in USA", "", "", "which roads pass through Tennessee", "which states does Road 95 pass through ", "which states have cities named Mobile", "which rivers pass through Arkansas", "Give me the states that border with Utah", "", "tell me the cities of Kansas", "tell me the rivers of Arkansas", "tell me the lakes of Kansas", "tell me the mountains of Missouri", "tell me the length of Mississippi river", "what is the population of Kansas", "what is the area of Wichita", ""}));
+		
+	/*	JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"How many rivers are in America?", "How many mountains are in America", "How many cities are in America", "How many states are in America", "How many roads are in America", "", "what are the richest states", "what are the largest states", "what are the richest cities", "what are the largest cities", "", "what is the richest state", "what is the largest mountain", "what is the largest mountain in Colorado", "what is the largest lake in Minnesota", "what is the largest state in USA", "", "", "which roads pass through Tennessee", "which states does Road 95 pass through ", "which states have cities named Mobile", "which rivers pass through Arkansas", "Give me the states that border with Utah", "", "tell me the cities of Kansas", "tell me the rivers of Arkansas", "tell me the lakes of Kansas", "tell me the mountains of Missouri", "tell me the length of Mississippi river", "what is the population of Kansas", "what is the area of Wichita", ""}));
 		comboBox_1.setMaximumRowCount(20);
 		comboBox_1.setBounds(170, 24, 270, 20);
 		frame.getContentPane().add(comboBox_1);
@@ -109,7 +110,7 @@ public class UserIn {
 		JLabel label = new JLabel("Question");
 		label.setBounds(61, 27, 79, 14);
 		frame.getContentPane().add(label);
-		
+		*/
 	/*	JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"tourist", "businessman"}));
 		comboBox_2.setBounds(170, 55, 130, 20);
@@ -120,33 +121,25 @@ public class UserIn {
 		frame.getContentPane().add(lblProfession);
 */
 		JTextPane answerPane = new JTextPane();
-		
-		JScrollPane jsp = new JScrollPane(answerPane);
 		answerPane.setBounds(61, 200, 450, 222);
-	//	JPanel instructionPanel = new JPanel();
-	//	instructionPanel.add(jsp);
-	//	instructionPanel.setBounds(361, 200, 450, 222);
-		frame.getContentPane().add(answerPane);
+		JScrollPane jsp = new JScrollPane(answerPane);
+		jsp.setBounds(61, 200, 450, 222);
+		frame.getContentPane().add(jsp);
 		
-		
-		
-		
-/*		
-		JScrollPane answerPane = new JScrollPane();
-		answerPane.setBounds(139, 236, 388, 160);
-		frame.getContentPane().add(answerPane);
-		*/
-	//	JScrollPane scrollPane = new JScrollPane(answerPane);
 
-
+		
 		btnNewButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 
 
-				String Question = (String) comboBox_1.getSelectedItem();
+			    //String Question = (String) comboBox_1.getSelectedItem();
 		    	Object Interest = comboBox.getSelectedItem();
-		//		String Question = (String) comboBox.getSelectedItem();
+		    	//String Question = (String) comboBox.getSelectedItem();
+		    	
+		    	
+		    	
+		    	String Question = (String) textField.getText();
 
 				String header = "@relation user_preference\n@attribute 'interest' string\n@attribute 'class' {businessman,tourist}\n@data\n";
 				String data = header + Interest + "," + "?";
@@ -154,25 +147,25 @@ public class UserIn {
 				try {
 					writer = new BufferedWriter(new FileWriter("C:/Users/shuvro/Desktop/ThesisData1/test.arff"));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				try {
 					writer.write(data.toString());
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				try {
 					writer.flush();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 				try {
 					writer.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 
@@ -183,7 +176,7 @@ public class UserIn {
 					loadPrereq();
 					String answer = "";
 					
-					
+					try{
 
 					if (userType.equals("tourist")) {
 						answer = QueryGenerator.getAnswerForQuestion(Question, UserType.TOURIST); // TOURIST
@@ -199,14 +192,23 @@ public class UserIn {
 						System.err.println("Unknown User Type.");
 						System.exit(1);
 					}
+					
+					
 					answerPane.setText(answer);
+					}
+					catch(Exception e){
+						answerPane.setText("THIS QUESTION IS NOT IN OUR DATABASE!!!");
+					}
+					
+					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 			}
 		});
+		}
 
 	}
-}
+
+
